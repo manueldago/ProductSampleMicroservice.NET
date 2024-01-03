@@ -10,23 +10,23 @@
 
 ## Project Scaffolding
 
-├── businessLogic
-│
-├── #controllers
-│   
-├── data
-│   ├── cache
-│   ├── context
-│   ├── entities
-│   ├── mediator
-│   ├── repositories
-│   ├── sqlliteDB
-│
-├── models
-│
-├── services
-│
-└── sharedKernel
+- ## businessLogic
+
+- ## controllers
+
+- ## data
+    - ## cache
+    - ## context
+    - ## entities
+    - ## mediator
+    - ## repositories
+    - ## sqlliteDB
+
+- ## models
+
+- ## services
+
+- ## sharedKernel
     
 
 ## Architecture Overview
@@ -78,6 +78,12 @@ Introducing a Shared Kernel layer that houses common functionality shared across
    - a) Check your current version: `dotnet --version`
    - b) Review installed SDKs: `dotnet --list-sdks`
    - c) Set the correct SDK version for this API: `dotnet set sdk 8.0`
+
+### 3. Run API on Localhost.
+   - a) Clone project API (not test) on folder SRC
+   - b) Execute dotnet build
+   - c) Execute dotnet run
+
 
 Feel free to customize and expand upon these instructions based on your project's specific requirements.
 
