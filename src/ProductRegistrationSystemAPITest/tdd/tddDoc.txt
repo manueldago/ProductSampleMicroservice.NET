@@ -1,0 +1,20 @@
+TDD (TEST DRIVE DEVELOPMENT)
+****************************
+
+-DESCRIPTION-
+
+To follow the TDD approach, start by writing a failing test. 
+Then, write the necessary code to make the test pass. 
+Once the test passes, you can add more tests to cover other use cases of your API.
+
+
+
+
+-HOW TO MAKE ?-
+
+
+1) WRITE TESTS SMALLEST AND EASY TO UNDERSTAND.
+
+2) WRITE TESTS THAT COVER EVERYTHING CASES ABOUT API.
+
+3) USE ASSERTIONS FOR CHECK AND REVIEW CALLS

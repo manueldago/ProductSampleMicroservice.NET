@@ -1,0 +1,39 @@
+
+1) Crear apidotnet new webapi
+2) build dotnet build
+3) Levantar servicio: dotnet run
+
+
+Install Packages:
+
+MediatR:
+dotnet add package MediatR
+
+NUnit:
+dotnet add package NUnit
+
+Dapper:
+dotnet add package Dapper
+
+SqlLite:
+dotnet add package Microsoft.Data.Sqlite.Core --version 8.0.0
+
+
+Version Packages:
+Dapper" Version="2.1.24" 
+MediatR" Version="12.2.0" 
+Microsoft.Data.Sqlite.Core" Version="8.0.0" 
+NUnit" Version="4.0.1" 
+
+
+
+Scaffolding:
+src
+├── Presentation
+│   └── Controllers
+└── Business
+└── Services
+└── Data
+└── Repositories
+├── Unit
+└── Integration

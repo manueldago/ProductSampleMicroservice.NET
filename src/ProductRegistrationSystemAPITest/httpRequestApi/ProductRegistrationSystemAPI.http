@@ -1,0 +1,53 @@
+# API REST
+
+@ProductRegistrationSystemAPI_HostAddress = http://localhost:5115
+
+
+GET {{ProductRegistrationSystemAPI_HostAddress}}/api/product/getbyid/1
+Accept: application/json
+
+###
+
+POST {{ProductRegistrationSystemAPI_HostAddress}}/api/product/update
+Content-Type: application/json
+
+{ 
+  "productId": 1,
+  "name": "NOTEBOOK",
+  "status": 1,
+  "stock": 50,
+  "description": "17 PULGADAS",
+  "price": 20,
+  "discount": 0,
+  "finalPrice": 0 
+}
+###
+
+PUT {{ProductRegistrationSystemAPI_HostAddress}}/api/product/insert
+Content-Type: application/json
+
+{ 
+  "productId": 0,
+  "name": "PC ALL IN ONE",
+  "status": 1,
+  "stock": 50,
+  "description": "COMPUTER PC",
+  "price": 10,
+  "discount": 0,
+  "finalPrice": 0 
+}
+###
+
+
+
+# EXTERNAL API MOCK
+
+GET https://65931d1ebb12970719905fee.mockapi.io/api/v1/discountzero
+Accept: application/json
+
+###
+
+GET https://65931d1ebb12970719905fee.mockapi.io/api/v1/discount
+Accept: application/json
+
+###
