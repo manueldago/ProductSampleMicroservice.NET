@@ -25,10 +25,10 @@ namespace ProductRegistrationSystemAPI.controllers
         }
 
         [HttpGet]
-        [Route("/api/product/getbyid/{id}")]
+        [Route("/api/product/{id}")]
         public async Task<IResult> GetById(long? id)
         {
-            var request = new ProductQuery() { ProductId = id };
+            var request = new GetRequest() { ProductId = id };
 
             var response = await _mediator.Send(request) as IResult;
 
@@ -36,19 +36,19 @@ namespace ProductRegistrationSystemAPI.controllers
         }
 
 
-        [HttpPost]
-        [Route("/api/product/update")]
-        public async Task<IResult> Update([FromBody] Product product)
+        [HttpPut]
+        [Route("/api/product/{id}")]
+        public async Task<IResult> Update(long id, [FromBody] Product product)
         {
-            var request = new UpdateRequest() { Product = product };
+            var request = new UpdateRequest() { Id= id, Product = product };
 
             var response = await _mediator.Send(request) as IResult;
 
             return response == null ? Results.Json(Problem()) : response;            
         }
 
-        [HttpPut]
-        [Route("/api/product/insert")]
+        [HttpPost]
+        [Route("/api/product")]
         public async Task<IResult> Insert([FromBody] Product product)
         {
             var request = new InsertRequest() { Product = product };

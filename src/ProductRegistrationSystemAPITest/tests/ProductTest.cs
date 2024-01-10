@@ -10,7 +10,6 @@ using Microsoft.Extensions.DependencyInjection;
 using ProductRegistrationSystemAPI.controllers;
 using Microsoft.VisualStudio.TestPlatform.TestHost;
 using models;
-using NUnit.Framework;
 using ProductRegistrationSystemAPI.data.mediator.queryHandler;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using ProductRegistrationSystemAPI.data.cache;
@@ -23,6 +22,7 @@ using System.Net;
 using Microsoft.AspNetCore.Http;
 using sharedKernel;
 using ProductRegistrationSystemAPI.data.entities;
+using ProductRegistrationSystemAPI.data.mediator.commandHandler;
 
 namespace ProductRegistrationSystemAPITest.tests
 {
@@ -46,7 +46,7 @@ namespace ProductRegistrationSystemAPITest.tests
         public async Task GetById_FailIfHaveBadProductQuery_Value()
         {
             // Arrange
-            var productQuery = new ProductQuery { ProductId = 0 };
+            var productQuery = new GetRequest { ProductId = 0 };
 
             // Act        
             var product = await _productBL.GetById(productQuery.ProductId);
@@ -61,7 +61,7 @@ namespace ProductRegistrationSystemAPITest.tests
         public async Task GetById_ShouldHaveProductModel_Entity()
         {
             // Arrange
-            var productQuery = new ProductQuery { ProductId = 1 };
+            var productQuery = new GetRequest { ProductId = 1 };
 
             // Act        
             var product = await _productBL.GetById(productQuery.ProductId);
@@ -81,18 +81,21 @@ namespace ProductRegistrationSystemAPITest.tests
         public async Task Insert_FailIfHaveEqual_Id_FromOtherProduct_Inserted_On_DB()
         {
             // Arrange
-            var productMock = new Product()
+            var insertRequest = new InsertRequest()
             {
-                ProductId = 1,
-                Description = "PC NOTEBOOK",
-                Name = "PC",
-                Price = 10,
-                Status = 1,
-                Stock = 10
+                Product = new Product()
+                {
+                    ProductId = 1,
+                    Description = "PC NOTEBOOK",
+                    Name = "PC",
+                    Price = 10,
+                    Status = 1,
+                    Stock = 10
+                }
             };
 
             // Act        
-            var product = await _productBL.Insert(productMock);
+            var product = await _productBL.Insert(insertRequest);
 
             // Assert                  
             Assert.IsNull(product.ResponseData);
@@ -102,17 +105,20 @@ namespace ProductRegistrationSystemAPITest.tests
         [TestMethod()]
         public async Task Insert_ShouldGetNewIdProduct_To_Inserted()
         {
-            var productMock = new Product()
+            var insertRequest = new InsertRequest()
             {
-                Description = "PC NOTEBOOK",
-                Name = "PC",
-                Price = 10,
-                Status = 1,
-                Stock = 10
+                Product = new Product()
+                {
+                    Description = "PC NOTEBOOK",
+                    Name = "PC",
+                    Price = 10,
+                    Status = 1,
+                    Stock = 10
+                }
             };
 
             // Act        
-            var product = await _productBL.Insert(productMock);
+            var product = await _productBL.Insert(insertRequest);
 
             // Assert                  
             Assert.IsTrue(product.ResponseData?.ToString()?.Contains("New id generated for added product is"));
@@ -126,18 +132,21 @@ namespace ProductRegistrationSystemAPITest.tests
         [TestMethod()]
         public async Task Update_FailIfHaveProductId_that_notInsertedYet()
         {
-            var productMock = new Product()
+            var updateRequest = new UpdateRequest()
             {
-                ProductId = 9999,
-                Description = "MOUSE WIRELESS",
-                Name = "MOUSE",
-                Price = 100,
-                Status = 0,
-                Stock = 100
+                Product= new Product()
+                {                    
+                    Description = "MOUSE WIRELESS",
+                    Name = "MOUSE",
+                    Price = 100,
+                    Status = 0,
+                    Stock = 100
+                },
+                Id= 9999
             };
 
             // Act        
-            var product = await _productBL.Update(productMock);
+            var product = await _productBL.Update(updateRequest);
 
             // Assert                  
             Assert.IsNull(product.ResponseException);
@@ -147,18 +156,21 @@ namespace ProductRegistrationSystemAPITest.tests
         [TestMethod()]
         public async Task Update_ShouldHaveStatusOK_When_ProductHasBeenUpdated()
         {
-            var productMock = new Product()
+            var updateRequest = new UpdateRequest()
             {
-                ProductId = 1,
-                Description = "PHILIPS TV",
-                Name = "SMART TV",
-                Price = 100,
-                Status = 1,
-                Stock = 10
+                Product = new Product()
+                {                    
+                    Description = "PHILIPS TV",
+                    Name = "SMART TV",
+                    Price = 100,
+                    Status = 1,
+                    Stock = 10
+                },
+                Id= 1
             };
 
             // Act        
-            var product = await _productBL.Update(productMock);
+            var product = await _productBL.Update(updateRequest);
 
 
             // Assert                  

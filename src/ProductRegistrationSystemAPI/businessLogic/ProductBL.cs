@@ -1,6 +1,7 @@
 using MediatR;
 using models;
 using ProductRegistrationSystemAPI.data.entities;
+using ProductRegistrationSystemAPI.data.mediator.commandHandler;
 using ProductRegistrationSystemAPI.services;
 using services;
 using sharedKernel;
@@ -63,44 +64,44 @@ namespace businessLogic
             return responseMask;
         }
      
-        public async Task<ResponseAPI> Insert(Product product)
+        public async Task<ResponseAPI> Insert(InsertRequest request)
         {
             var responseMask = new ResponseAPI();
             try
             {
-                if (product.ProductId != 0)
+                if (request.Product.ProductId != 0)
                 { 
                    throw new ArgumentNullException("Insert product do not needs the property ProductId with value");
                 }
 
-                long result = await _productService.Insert(product);
+                long result = await _productService.Insert(request.Product);
                 string dataResult = result > 0 ? "Product has been added on database succesfully" : "Product do not added on database.";
                 responseMask.ResponseData = $"New id generated for added product is: {result}";
                 responseMask.ResponseStatusCode = _statusCode;
             }
             catch (Exception ex)
             {
-                responseMask.ResponseException = new ExceptionAPI() { Message = ex.Message, Source = "ProductController.GetById" };                
+                responseMask.ResponseException = new ExceptionAPI() { Message = ex.Message, Source = "ProductController.Insert" };                
             }
 
             return responseMask;
         }
 
-        public async Task<ResponseAPI> Update(Product product)
+        public async Task<ResponseAPI> Update(UpdateRequest request)
         {
             var responseMask = new ResponseAPI();
 
             try
             {
 
-                bool result = await _productService.Update(product);
+                bool result = await _productService.Update(request.Product, request.Id);
                 string dataResult = result ? "Product has been updated on database succesfully" : "Product do not updated on database.";
                 responseMask.ResponseData = dataResult;
                 responseMask.ResponseStatusCode = _statusCode;
             }
             catch (Exception ex)
             {
-                responseMask.ResponseException = new ExceptionAPI() { Message = ex.Message, Source = "ProductController.GetById" };                
+                responseMask.ResponseException = new ExceptionAPI() { Message = ex.Message, Source = "ProductController.Update" };                
             }
 
             return responseMask;

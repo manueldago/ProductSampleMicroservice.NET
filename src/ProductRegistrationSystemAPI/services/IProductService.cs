@@ -6,6 +6,6 @@ namespace services;
 public interface IProductService
 {
     public Task<ProductModel?> GetById(long id);
-    public Task<bool> Update(Product product);
+    public Task<bool> Update(Product product, long id);
     public Task<long> Insert(Product product);
 }

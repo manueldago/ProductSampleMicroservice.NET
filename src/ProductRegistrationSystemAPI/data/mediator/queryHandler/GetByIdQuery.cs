@@ -7,12 +7,12 @@ using System.Net;
 
 namespace ProductRegistrationSystemAPI.data.mediator.queryHandler
 {
-    public class ProductQuery : IRequest<IResult>
+    public class GetRequest : IRequest<IResult>
     {
         public long? ProductId { get; set; }
     }
 
-    public class GetByIdQuery : IRequestHandler<ProductQuery, IResult>
+    public class GetByIdQuery : IRequestHandler<GetRequest, IResult>
     {
         private readonly IProductBL _manageProduct;
 
@@ -21,7 +21,7 @@ namespace ProductRegistrationSystemAPI.data.mediator.queryHandler
             _manageProduct = manageProduct;
         }
 
-        public async Task<IResult> Handle(ProductQuery request, CancellationToken cancellationToken)
+        public async Task<IResult> Handle(GetRequest request, CancellationToken cancellationToken)
         {
             var response = await _manageProduct.GetById(request.ProductId);
 

@@ -7,6 +7,7 @@ namespace ProductRegistrationSystemAPI.data.mediator.commandHandler
 {
     public class InsertRequest : IRequest<IResult>
     {
+       
         public required Product Product { get; set; }
     }
     public class InsertCommand : IRequestHandler<InsertRequest, IResult>
@@ -20,7 +21,7 @@ namespace ProductRegistrationSystemAPI.data.mediator.commandHandler
 
         public async Task<IResult> Handle(InsertRequest request, CancellationToken cancellationToken)
         {
-            var response = await _manageProduct.Insert(request.Product);
+            var response = await _manageProduct.Insert(request);
 
             return HttpCodeHelper.Response(response);
         }

@@ -20,9 +20,17 @@ public class ProductService : IProductService
         return Task.FromResult(product);
     }
 
-    public Task<bool> Update(Product product)
+    public Task<bool> Update(Product product, long id)
     {
+        var productFromDB = _productRepository.GetById(id);
+        if (productFromDB == null)
+        {
+            return Task.FromResult(false);
+        } 
+        
+        product.ProductId = productFromDB.ProductId;
         bool result =_productRepository.Update(product);
+        
         return Task.FromResult(result);
     }
     public Task<long> Insert(Product product)

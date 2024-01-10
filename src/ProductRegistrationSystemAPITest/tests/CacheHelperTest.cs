@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
 using ProductRegistrationSystemAPI.data.cache;
 using ProductRegistrationSystemAPI.data.context;
 using ProductRegistrationSystemAPI.data.repositories;

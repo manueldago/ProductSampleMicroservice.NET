@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using models;
 using ProductRegistrationSystemAPI.data.entities;
+using ProductRegistrationSystemAPI.data.mediator.commandHandler;
 using sharedKernel;
 using System.Net;
 
@@ -11,9 +12,9 @@ namespace businessLogic
 
         Task<ResponseAPI> GetById(long? id);
 
-        Task<ResponseAPI> Update(Product product);
+        Task<ResponseAPI> Update(UpdateRequest request);
 
-        Task<ResponseAPI> Insert (Product product);
+        Task<ResponseAPI> Insert(InsertRequest request);
 
     }
 }

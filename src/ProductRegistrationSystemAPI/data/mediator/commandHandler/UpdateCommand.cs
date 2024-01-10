@@ -7,6 +7,7 @@ namespace ProductRegistrationSystemAPI.data.mediator.commandHandler
 {
     public class UpdateRequest : IRequest<IResult>
     {
+        public required long Id { get; set; }
         public required Product Product { get; set; }
     }
 
@@ -21,7 +22,7 @@ namespace ProductRegistrationSystemAPI.data.mediator.commandHandler
 
         public async Task<IResult> Handle(UpdateRequest request, CancellationToken cancellationToken)
         {
-            var response = await _manageProduct.Update(request.Product);
+            var response = await _manageProduct.Update(request);
 
             return HttpCodeHelper.Response(response);
         }

@@ -3,12 +3,12 @@
 @ProductRegistrationSystemAPI_HostAddress = http://localhost:5115
 
 
-GET {{ProductRegistrationSystemAPI_HostAddress}}/api/product/getbyid/1
+GET {{ProductRegistrationSystemAPI_HostAddress}}/api/product/1
 Accept: application/json
 
 ###
 
-POST {{ProductRegistrationSystemAPI_HostAddress}}/api/product/update
+POST {{ProductRegistrationSystemAPI_HostAddress}}/api/product
 Content-Type: application/json
 
 { 
@@ -23,11 +23,11 @@ Content-Type: application/json
 }
 ###
 
-PUT {{ProductRegistrationSystemAPI_HostAddress}}/api/product/insert
+PUT {{ProductRegistrationSystemAPI_HostAddress}}/api/product/1
 Content-Type: application/json
 
 { 
-  "productId": 0,
+  "productId": 1,
   "name": "PC ALL IN ONE",
   "status": 1,
   "stock": 50,
