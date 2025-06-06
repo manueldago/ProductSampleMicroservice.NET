@@ -96,6 +96,7 @@ namespace businessLogic
 
                 bool result = await _productService.Update(request.Product, request.Id);
                 string dataResult = result ? "Product has been updated on database successfully" : "Product not updated in database.";
+
                 responseMask.ResponseData = dataResult;
                 responseMask.ResponseStatusCode = _statusCode;
             }
