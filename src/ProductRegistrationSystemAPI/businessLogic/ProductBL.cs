@@ -70,12 +70,12 @@ namespace businessLogic
             try
             {
                 if (request.Product.ProductId != 0)
-                { 
-                   throw new ArgumentNullException("Insert product do not needs the property ProductId with value");
+                {
+                   throw new ArgumentNullException("Insert product does not need the property `ProductId` set");
                 }
 
                 long result = await _productService.Insert(request.Product);
-                string dataResult = result > 0 ? "Product has been added on database succesfully" : "Product do not added on database.";
+                string dataResult = result > 0 ? "Product has been added on database successfully" : "Product not added to database.";
                 responseMask.ResponseData = $"New id generated for added product is: {result}";
                 responseMask.ResponseStatusCode = _statusCode;
             }
@@ -95,7 +95,8 @@ namespace businessLogic
             {
 
                 bool result = await _productService.Update(request.Product, request.Id);
-                string dataResult = result ? "Product has been updated on database succesfully" : "Product not updated in database.";
+                string dataResult = result ? "Product has been updated on database successfully" : "Product not updated in database.";
+
                 responseMask.ResponseData = dataResult;
                 responseMask.ResponseStatusCode = _statusCode;
             }

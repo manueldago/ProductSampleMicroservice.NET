@@ -176,7 +176,7 @@ namespace ProductRegistrationSystemAPITest.tests
 
 
             // Assert                  
-            Assert.IsTrue(product.ResponseData?.ToString()?.Contains("Product has been updated on database succesfully"));
+            Assert.IsTrue(product.ResponseData?.ToString()?.Contains("Product has been updated on database successfully"));
         }
 
         #endregion
