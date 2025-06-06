@@ -145,11 +145,13 @@ namespace ProductRegistrationSystemAPITest.tests
                 Id= 9999
             };
 
-            // Act        
+            // Act
             var product = await _productBL.Update(updateRequest);
 
-            // Assert                  
+            // Assert
             Assert.IsNull(product.ResponseException);
+            Assert.AreEqual("Product not updated in database.", product.ResponseData);
+            Assert.AreNotEqual(HttpStatusCode.OK, product.ResponseStatusCode);
 
         }
 
