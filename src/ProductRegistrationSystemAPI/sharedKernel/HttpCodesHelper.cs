@@ -13,28 +13,20 @@ namespace sharedKernel
                 switch (res.ResponseStatusCode)
                 {
                     case System.Net.HttpStatusCode.OK:
-                        Results.Ok(res);
-                        break
-                           ;
+                        return Results.Ok(res);
                     case System.Net.HttpStatusCode.NotFound:
-                        Results.NotFound(res);
-                        break;
-
+                        return Results.NotFound(res);
                     case System.Net.HttpStatusCode.Unauthorized:
-                        Results.Unauthorized();
-                        break;
-
+                        return Results.Unauthorized();
                     case System.Net.HttpStatusCode.BadRequest:
-                        Results.BadRequest();
-                        break;
+                        return Results.BadRequest();
                     case System.Net.HttpStatusCode.Created:
-                        Results.Created("", res);
-                        break;
+                        return Results.Created("", res);
                     case System.Net.HttpStatusCode.InternalServerError:
-                        Results.Problem();
-                        break;
-                };
-                return Results.Json(res);
+                        return Results.Problem();
+                    default:
+                        return Results.Json(res);
+                }
             }
         }
     }
