@@ -10,5 +10,9 @@ namespace ProductRegistrationSystemAPI.data.repositories
         bool Update(Product product);
 
         long Insert(Product product);
+
+        IEnumerable<ProductModel> GetAll();
+
+        bool Delete(long id);
     }
 }

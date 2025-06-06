@@ -9,6 +9,8 @@ namespace ProductRegistrationSystemAPI.data.context
         public ProductContext(DbContextOptions<ProductContext> options) : base(options) { }
         
         public DbSet<Product> Product { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<Catalog> Catalogs { get; set; }
 
     }
 }
