@@ -77,7 +77,7 @@ Introducing a Shared Kernel layer that houses common functionality shared across
 
    - a) Check your current version: `dotnet --version`
    - b) Review installed SDKs: `dotnet --list-sdks`
-   - c) Set the correct SDK version for this API: `dotnet set sdk 8.0`
+   - c) Set the correct SDK version for this API by creating a `global.json` file: `dotnet new globaljson --sdk-version 8.0.100`
 
 ### 3. Run API on Localhost.
    - a) Clone project API (not test) on folder SRC
