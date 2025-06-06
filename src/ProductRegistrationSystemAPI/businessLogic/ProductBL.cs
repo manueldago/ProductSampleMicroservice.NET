@@ -108,6 +108,40 @@ namespace businessLogic
             return responseMask;
         }
 
+        public async Task<ResponseAPI> Delete(long id)
+        {
+            var responseMask = new ResponseAPI();
+            try
+            {
+                bool result = await _productService.Delete(id);
+                responseMask.ResponseData = result ? "Product deleted" : "Product not deleted";
+                responseMask.ResponseStatusCode = _statusCode;
+            }
+            catch (Exception ex)
+            {
+                responseMask.ResponseException = new ExceptionAPI() { Message = ex.Message, Source = "ProductController.Delete" };
+            }
+
+            return responseMask;
+        }
+
+        public async Task<ResponseAPI> GetAll()
+        {
+            var responseMask = new ResponseAPI();
+            try
+            {
+                var products = await _productService.GetAll();
+                responseMask.ResponseData = products;
+                responseMask.ResponseStatusCode = _statusCode;
+            }
+            catch (Exception ex)
+            {
+                responseMask.ResponseException = new ExceptionAPI() { Message = ex.Message, Source = "ProductController.GetAll" };
+            }
+
+            return responseMask;
+        }
+
         private async Task CalculatePrice(ProductModel productModel)
         {
             int discountFromService = await _discountExternalService.GetDiscount();

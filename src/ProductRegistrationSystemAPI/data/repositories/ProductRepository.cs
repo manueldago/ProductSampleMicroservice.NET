@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Storage.Json;
+using AutoMapper;
 using models;
 using ProductRegistrationSystemAPI.data.cache;
 using ProductRegistrationSystemAPI.data.context;
@@ -12,33 +13,28 @@ namespace ProductRegistrationSystemAPI.data.repositories
     {
         private readonly ProductContext _context;
         private readonly IProductCache _productCache;
+        private readonly IMapper _mapper;
 
-        public ProductRepository(ProductContext context, IProductCache productCache)
+        public ProductRepository(ProductContext context, IProductCache productCache, IMapper mapper)
         {
             _context = context;
             _productCache = productCache;
+            _mapper = mapper;
         }
 
         public ProductModel? GetById(long? id)
         {
             try
             {
-                var product = _context.Product.Where(p => p.ProductId.Equals(id)).FirstOrDefault();
-                if (product == null) return null;
+            var product = _context.Product.Where(p => p.ProductId.Equals(id)).FirstOrDefault();
+            if (product == null) return null;
 
-                ProductModel? model = new ProductModel()
-                {
-                    ProductId = product.ProductId,
-                    Name = product.Name,                  
-                    StatusName = _productCache.GetStatusName(product.Status),
-                    Stock = product.Stock,
-                    Description = product.Description,
-                    Price = product.Price,
-                    Discount = 0,
-                    FinalPrice = 0,                    
-                };
+            var model = _mapper.Map<ProductModel>(product);
+            model.StatusName = _productCache.GetStatusName(product.Status);
+            model.Discount = 0;
+            model.FinalPrice = 0;
 
-                return model;
+            return model;
             }
             catch (Exception)
             {
@@ -81,6 +77,42 @@ namespace ProductRegistrationSystemAPI.data.repositories
 
                 return true;
 
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public IEnumerable<ProductModel> GetAll()
+        {
+            try
+            {
+                return _context.Product
+                    .Select(p =>
+                    {
+                        var model = _mapper.Map<ProductModel>(p);
+                        model.StatusName = _productCache.GetStatusName(p.Status);
+                        model.Discount = 0;
+                        model.FinalPrice = 0;
+                        return model;
+                    }).ToList();
+            }
+            catch (Exception)
+            {
+                return Enumerable.Empty<ProductModel>();
+            }
+        }
+
+        public bool Delete(long id)
+        {
+            try
+            {
+                var product = _context.Product.FirstOrDefault(p => p.ProductId == id);
+                if (product == null) return false;
+                _context.Product.Remove(product);
+                _context.SaveChanges();
+                return true;
             }
             catch (Exception)
             {

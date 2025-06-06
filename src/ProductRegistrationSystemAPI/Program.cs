@@ -6,12 +6,14 @@ using ProductRegistrationSystemAPI.data.context;
 using ProductRegistrationSystemAPI.data.repositories;
 using ProductRegistrationSystemAPI.services;
 using ProductRegistrationSystemAPI.sharedKernel;
+using ProductRegistrationSystemAPI;
+using ProductRegistrationSystemAPI.validators;
 using services;
 using System.Reflection;
+using ProductRegistrationSystemAPI.mapping;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddMemoryCache();
@@ -23,8 +25,11 @@ builder.Services.AddScoped<ICacheHelper, CacheHelper>();
 builder.Services.AddScoped<IProductCache, ProductCache>();
 builder.Services.AddHttpClient<DiscountExternalservice>();
 builder.Services.AddScoped<IDiscountExternalService,DiscountExternalservice>();
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddMediatR(c=> c.RegisterServicesFromAssemblyContaining<Program>());
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddFluentValidationAutoValidation();
+builder.Services.AddValidatorsFromAssemblyContaining<ProductValidator>();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
@@ -35,5 +40,5 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseMiddleware<RequestTimeLoggingMiddleware>();
-app.MapControllers();
+app.MapProductEndpoints();
 app.Run();

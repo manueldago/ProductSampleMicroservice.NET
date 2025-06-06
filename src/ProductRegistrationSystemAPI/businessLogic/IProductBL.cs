@@ -16,5 +16,9 @@ namespace businessLogic
 
         Task<ResponseAPI> Insert(InsertRequest request);
 
+        Task<ResponseAPI> Delete(long id);
+
+        Task<ResponseAPI> GetAll();
+
     }
 }

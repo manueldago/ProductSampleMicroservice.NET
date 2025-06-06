@@ -38,4 +38,16 @@ public class ProductService : IProductService
         long result = _productRepository.Insert(product);
         return Task.FromResult(result);
     }
+
+    public Task<IEnumerable<ProductModel>> GetAll()
+    {
+        var products = _productRepository.GetAll();
+        return Task.FromResult(products);
+    }
+
+    public Task<bool> Delete(long id)
+    {
+        bool result = _productRepository.Delete(id);
+        return Task.FromResult(result);
+    }
 }
